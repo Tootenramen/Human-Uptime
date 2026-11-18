@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human Uptime - check in on yourself</title>
+<meta name="description" content="A gentle self-care companion for people in security and IT who are burned out. Daily check-in, thought untangler, grounding tools, a farm daydream. Private, in your browser. Not therapy.">
+<meta property="og:title" content="Human Uptime - You're not a server. Check in on yourself.">
+<meta property="og:description" content="A gentle self-care companion for burned-out security and IT people. Private, in your browser. Not therapy, a nudge toward real people.">
+<meta property="og:image" content="https://tootenramen.github.io/Human-Uptime/docs/hero.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1b130e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231b130e'/%3E%3Cpath d='M16 27V15' stroke='%23a3b18a' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M16 16c0-5 3-8 8-8 0 5-3 8-8 8zM16 18c0-4-2-6-7-6 0 4 2 6 7 6z' fill='%23f0b25a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --soil:#1b130e; --soil2:#251a12; --bark:#3a2a1c; --sage:#a3b18a; --sage2:#7d9468; --amber:#f0b25a; --amber2:#d98e3c;
+  --cream:#f4ead5; --mut:#cfc2a8; --line:rgba(244,234,213,.18); --card:rgba(30,21,14,.88);
+  --c1:#7a5a58; --c2:#a67c52; --c3:#d9a441; --c4:#a9b57a; --c5:#7fb069;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif; --sans:'Nunito',ui-rounded,'Segoe UI',system-ui,sans-serif; --mono:ui-monospace,'Cascadia Mono',Consolas,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--soil);color:var(--cream);font-family:var(--sans);font-size:18px;line-height:1.55;min-height:100vh;overflow-x:hidden}
+#scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+a{color:var(--amber)}
+a:hover{color:#ffd08a}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono)}
+header.top .brand{grid-column:1;grid-row:1}header.top #helpBtn{grid-column:3;grid-row:1;justify-self:end}header.top nav#nav{grid-column:2;grid-row:1}
+header.top{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:auto 1fr auto;gap:8px 16px;align-items:center;padding:10px clamp(14px,3vw,32px);background:linear-gradient(var(--soil) 60%,rgba(27,19,14,.0));backdrop-filter:blur(2px)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--cream);text-decoration:none}
+.brand svg{width:30px;height:30px}
+nav#nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:2px}
+nav#nav::-webkit-scrollbar{display:none}
+nav#nav a{flex:none;color:var(--mut);text-decoration:none;font-weight:700;font-size:.95rem;padding:9px 13px;border-radius:999px;border:1px solid transparent}
+nav#nav a:hover{color:var(--cream);background:rgba(244,234,213,.07)}
+nav#nav a[aria-current=page]{color:var(--soil);background:var(--cream)}
+.help{font:inherit;font-weight:800;font-size:.95rem;color:var(--cream);background:rgba(163,177,138,.12);border:1.5px solid var(--sage);border-radius:999px;padding:10px 16px;cursor:pointer;min-height:44px;white-space:nowrap}
+.help:hover{background:rgba(163,177,138,.28)}
+@media (max-width:860px){
+  header.top{grid-template-columns:1fr auto}
+  header.top #helpBtn{grid-column:2}
+  header.top nav#nav{grid-column:1/-1;grid-row:2}
+  .brand span{font-size:1.1rem}
+  .help{font-size:.85rem;padding:8px 12px}
+}
+main{position:relative;z-index:2;outline:none}
+.wrap{max-width:900px;margin:0 auto;padding:12px clamp(16px,4vw,32px) 40px}
+.wrap.narrow{max-width:720px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;margin:0 0 .5em;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,5vw,3rem)} h2{font-size:1.6rem} h3{font-size:1.25rem}
+h1:focus{outline:none}
+p{margin:0 0 1em}
+.lead{color:var(--mut);font-size:1.1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,28px);margin:0 0 18px;box-shadow:0 12px 40px rgba(0,0,0,.28)}
+.btn{font:inherit;font-weight:800;color:var(--soil);background:var(--amber);border:0;border-radius:999px;padding:14px 26px;min-height:52px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .15s}
+.btn:hover{background:#ffc579;color:var(--soil);transform:translateY(-1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.ghost{background:transparent;color:var(--cream);border:1.5px solid var(--line)}
+.btn.ghost:hover{background:rgba(244,234,213,.08);color:var(--cream)}
+.btn.sage{background:var(--sage);color:var(--soil)}
+.btn.small{min-height:44px;padding:9px 18px;font-size:.95rem}
+.row-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:18px}
+.note{color:var(--mut);font-size:.95rem}
+.soft{font-size:.9rem;color:var(--mut)}
+/* hero */
+.hero{min-height:calc(100vh - 140px);min-height:calc(100svh - 140px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:clamp(16px,6vh,70px) 20px 0}
+.hero h1{font-size:clamp(2.6rem,8vw,5.2rem);margin:.15em 0 .2em;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.hero .sub{font-size:clamp(1.1rem,2.4vw,1.45rem);color:var(--cream);margin-bottom:1.4em;opacity:.95}
+.hero .kicker{color:var(--sage);font-size:.95rem;margin:0}
+.big{display:inline-flex;flex-direction:column;align-items:center;gap:0;background:var(--amber);color:var(--soil);font-weight:800;font-size:1.5rem;text-decoration:none;border-radius:999px;padding:18px 44px;box-shadow:0 0 0 0 rgba(240,178,90,.5),0 14px 40px rgba(0,0,0,.4);animation:glow 3.5s ease-in-out infinite;transition:transform .2s}
+.big small{font-size:.9rem;font-weight:700;opacity:.8}
+.big:hover{transform:scale(1.03);color:var(--soil);background:#ffc579}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(240,178,90,.35),0 14px 40px rgba(0,0,0,.4)}50%{box-shadow:0 0 0 18px rgba(240,178,90,0),0 14px 40px rgba(0,0,0,.4)}}
+.honest{max-width:520px;margin:28px auto 6px;color:var(--cream);font-size:1rem;background:rgba(27,19,14,.8);border:1px solid var(--line);border-radius:14px;padding:10px 16px}
+.priv{color:var(--mut);font-size:.92rem;margin:0}
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:8px}
+.tile{display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:var(--cream);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;min-height:96px;transition:transform .15s,border-color .15s}
+.tile:hover{transform:translateY(-2px);border-color:var(--sage);color:var(--cream)}
+.tile svg{flex:none;width:34px;height:34px;color:var(--amber)}
+.tile b{display:block;font-size:1.05rem}
+.tile span{color:var(--mut);font-size:.93rem;line-height:1.35;display:block}
+/* uptime strip */
+.uptime{margin:0 0 18px}
+.strip{display:grid;grid-template-columns:repeat(30,1fr);gap:3px;margin:10px 0 8px}
+.strip i{display:block;aspect-ratio:1/1.6;border-radius:5px;background:var(--c);min-width:0}
+.strip i.mw{background:repeating-linear-gradient(135deg,rgba(244,234,213,.12) 0 3px,transparent 3px 6px);border:1px dashed rgba(244,234,213,.25)}
+.strip i.today{outline:2px solid var(--cream);outline-offset:1px}
+.termline{font-family:var(--mono);font-size:.9rem;color:var(--sage)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.85rem;color:var(--mut);align-items:center}
+.legend span i{display:inline-block;width:12px;height:12px;border-radius:4px;vertical-align:-1px;margin-right:5px}
+/* forms */
+fieldset{border:0;padding:0;margin:0}
+.metric{padding:14px 0;border-bottom:1px solid var(--line)}
+.metric:last-of-type{border-bottom:0}
+.metric legend{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.1rem;padding:0;margin-bottom:8px}
+.metric legend small{font-weight:600;color:var(--mut);font-size:.92rem}
+.ico{width:28px;height:28px;color:var(--amber);flex:none}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.opt{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px 6px;border-radius:16px;cursor:pointer;border:1.5px solid transparent;min-height:72px;text-align:center}
+.opt:hover{background:rgba(244,234,213,.06)}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.orb{width:38px;height:38px;border-radius:50%;border:2px solid var(--cream);background:linear-gradient(to top,var(--oc) calc(var(--f)*100%),transparent 0);transition:transform .15s}
+.opt b{font-size:.78rem;font-weight:700;color:var(--mut);line-height:1.15}
+.opt input:checked~.orb{transform:scale(1.15);box-shadow:0 0 0 4px rgba(240,178,90,.55)}
+.opt input:checked~b{color:var(--cream)}
+.opt:has(input:checked){background:rgba(240,178,90,.13);border-color:var(--amber)}
+.opt:has(input:focus-visible){outline:3px solid var(--amber);outline-offset:2px}
+label.fl{display:block;font-weight:800;margin-bottom:6px}
+textarea,input[type=text],select{width:100%;font:inherit;color:var(--cream);background:rgba(0,0,0,.28);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;min-height:48px}
+textarea{min-height:96px;resize:vertical}
+textarea:focus,input[type=text]:focus,select:focus{outline:3px solid var(--amber);outline-offset:1px}
+select{width:auto;display:inline-block}
+input[type=range]{width:100%;accent-color:var(--amber);height:34px}
+.rangeRow{display:flex;gap:14px;align-items:center}
+.rangeRow output{min-width:3.2em;text-align:right;font-weight:800;color:var(--amber);font-family:var(--mono)}
+.obs{border-left:4px solid var(--sage);padding:4px 0 4px 16px;margin:14px 0}
+.obs p{margin:0 0 .5em}
+.action{background:rgba(163,177,138,.14);border:1px solid var(--sage2);border-radius:16px;padding:14px 16px;margin:12px 0}
+.action b{color:var(--sage)}
+.progress{height:8px;background:rgba(244,234,213,.12);border-radius:99px;overflow:hidden;margin:6px 0 18px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--sage),var(--amber));border-radius:99px;transition:width .3s}
+.choices{display:grid;gap:10px}
+.choice{font:inherit;text-align:left;color:var(--cream);background:rgba(244,234,213,.06);border:1.5px solid var(--line);border-radius:16px;padding:14px 18px;min-height:56px;cursor:pointer;font-weight:700}
+.choice:hover{border-color:var(--amber);background:rgba(240,178,90,.1)}
+.choice[aria-pressed=true]{border-color:var(--amber);background:rgba(240,178,90,.18)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font:inherit;color:var(--cream);background:rgba(244,234,213,.07);border:1.5px solid var(--line);border-radius:999px;padding:10px 16px;min-height:48px;cursor:pointer;text-align:left;font-weight:700}
+.chip:hover,.chip[aria-pressed=true]{border-color:var(--amber);background:rgba(240,178,90,.16)}
+/* bars */
+.bar{margin:14px 0 4px}
+.bar .tr{height:14px;background:rgba(244,234,213,.12);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:99px;transition:width .6s}
+.bar .lab{display:flex;justify-content:space-between;font-weight:800;margin-bottom:4px}
+.lvl{font-family:var(--mono);font-size:.88rem;color:var(--amber)}
+.dim{border-top:1px solid var(--line);padding:16px 0}
+.dim:first-of-type{border-top:0}
+.dim h3{margin-bottom:.3em}
+/* tabs */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:thin}
+.tabs button{flex:none;font:inherit;font-weight:800;color:var(--mut);background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:10px 16px;min-height:46px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--cream);color:var(--soil);border-color:var(--cream)}
+/* breathing */
+.stage{display:grid;place-items:center;padding:8px 0}
+.box{position:relative;width:min(250px,70vw);aspect-ratio:1;border:2px solid var(--line);border-radius:18px;display:grid;place-items:center}
+.box .core{width:56%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,var(--amber) 0,rgba(240,178,90,.25) 70%,transparent 72%);transform:scale(.55);transition:transform 4s ease-in-out}
+.box .dotm{position:absolute;left:-9px;bottom:-9px;width:16px;height:16px;border-radius:50%;background:var(--cream);box-shadow:0 0 16px var(--amber);transition:transform 4s linear;margin:0}
+.phase{font-family:var(--serif);font-size:2rem;text-align:center;margin:10px 0 0;min-height:1.4em}
+.count{font-family:var(--mono);color:var(--sage);text-align:center}
+.bigstep{text-align:center;padding:10px 0}
+.bigstep .n{font-family:var(--serif);font-size:6rem;line-height:1;color:var(--amber);animation:rise .6s both}
+@keyframes rise{from{opacity:0;transform:translateY(12px) scale(.9)}to{opacity:1;transform:none}}
+.ulist{list-style:none;padding:0;margin:0}
+.ulist li{padding:12px 0;border-bottom:1px solid var(--line)}
+.ulist li:last-child{border-bottom:0}
+/* tonight */
+.todo{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:18px;border:1.5px solid var(--line);margin:0 0 10px;cursor:pointer;background:rgba(244,234,213,.04);min-height:64px;position:relative}
+.todo:hover{border-color:var(--sage)}
+.todo input{width:28px;height:28px;accent-color:var(--sage);flex:none;margin-top:2px;cursor:pointer}
+.todo:has(input:checked){background:rgba(163,177,138,.16);border-color:var(--sage)}
+.todo:has(input:checked) .tt{text-decoration:line-through;text-decoration-color:rgba(244,234,213,.4)}
+.todo:has(input:focus-visible){outline:3px solid var(--amber);outline-offset:2px}
+.todo .tt{font-weight:800}
+.todo .hint{display:block;color:var(--mut);font-size:.93rem;font-weight:400}
+.pop{position:absolute;right:14px;top:10px;width:30px;height:36px;transform-origin:50% 100%;animation:grow .9s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes grow{from{transform:scale(0)}to{transform:scale(1)}}
+/* scripts */
+.script{white-space:pre-wrap;background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0 12px;font-size:1rem}
+.script mark{background:rgba(240,178,90,.2);color:var(--amber);border-radius:4px;padding:0 2px}
+.journal{margin-top:10px}
+.jitem{border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:10px;background:rgba(0,0,0,.2)}
+.jitem .meta{font-family:var(--mono);font-size:.82rem;color:var(--sage)}
+.ba{display:flex;align-items:center;gap:10px;font-family:var(--mono);color:var(--amber);font-size:1.4rem;margin:8px 0}
+details{margin:8px 0}
+summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center}
+.qlist li{margin-bottom:8px}
+/* toast */
+#toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,40px);opacity:0;z-index:60;background:var(--cream);color:var(--soil);font-weight:800;padding:12px 20px;border-radius:999px;transition:all .3s;pointer-events:none;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+/* help dialog */
+dialog{border:1.5px solid var(--sage);border-radius:24px;background:#241a12;color:var(--cream);max-width:560px;width:calc(100% - 28px);padding:0;box-shadow:0 30px 80px rgba(0,0,0,.6);max-height:92vh;overflow:auto}
+dialog::backdrop{background:rgba(10,6,4,.72)}
+.dlg{padding:clamp(18px,4vw,30px)}
+.crisis{display:none;background:rgba(240,178,90,.14);border:1px solid var(--amber);border-radius:16px;padding:14px 16px;margin-bottom:16px}
+dialog.crisismode .crisis{display:block}
+.helplist{list-style:none;padding:0;margin:0 0 16px}
+.helplist li{padding:12px 0;border-bottom:1px solid var(--line)}
+.helplist li:last-child{border-bottom:0}
+.helplist b{display:block}
+.helplist .s{color:var(--mut);font-size:.95rem}
+footer.foot{position:relative;z-index:2;text-align:center;padding:30px 20px 42px;color:var(--mut);font-size:.9rem;background:linear-gradient(transparent,rgba(27,19,14,.9) 40%)}
+footer.foot p{margin:0 0 .5em}
+.speak{margin-left:auto}
+.top-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.sprout-grow{display:inline-block;width:36px;height:44px;vertical-align:middle;transform-origin:50% 100%;animation:grow 1s cubic-bezier(.2,1.4,.4,1) both}
+.sp{transform-box:fill-box;transform-origin:50% 100%;animation:grow 1.4s cubic-bezier(.2,1.2,.4,1) both}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+@media (max-width:520px){
+  body{font-size:17px}
+  .opt b{font-size:.72rem}
+  .orb{width:34px;height:34px}
+  .big{padding:16px 32px;font-size:1.35rem}
+  .tiles{grid-template-columns:1fr}
+  .bigstep .n{font-size:4.6rem}
+}
+</style>
+</head>
+<body>
+<svg id="scene" aria-hidden="true" focusable="false"></svg>
+<a class="sr" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="#/" aria-label="Human Uptime, home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27V15" stroke="#a3b18a" stroke-width="2.5" stroke-linecap="round"/><path d="M16 16c0-5 3-8 8-8 0 5-3 8-8 8zM16 18c0-4-2-6-7-6 0 4 2 6 7 6z" fill="#f0b25a"/></svg>
+    <span>Human Uptime</span>
+  </a>
+  <button class="help" id="helpBtn" type="button" aria-haspopup="dialog">Need a human right now?</button>
+  <nav id="nav" aria-label="Sections"></nav>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="foot">
+  <p><strong>Not therapy, not medical advice, not a diagnosis.</strong> A gentle tool and a nudge toward real people.</p>
+  <p>Private by design: everything stays in this browser. <a href="#/data">Export or delete it any time.</a> <button class="help" type="button" data-help style="min-height:36px;padding:4px 12px;font-size:.85rem">Need a human right now?</button></p>
+  <p>Built by <a href="https://www.linkedin.com/in/gustavo-freitas-69b93910b/" target="_blank" rel="noopener">Gustavo Freitas</a></p>
+</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="helpDlg" aria-labelledby="helpTitle">
+  <div class="dlg">
+    <h2 id="helpTitle">Need a human right now?</h2>
+    <div class="crisis" id="crisisMsg" role="alert">
+      <p><b>That sounded heavy, and I'm glad it's out of your head and into words.</b> You don't have to carry it alone, and this app can't be the one who helps you with it. A real person can, right now. If you might act on these thoughts, or you're in danger, please reach out below.</p>
+    </div>
+    <p class="lead" style="margin-bottom:.6em">You deserve a real person. Any of these is a good first step:</p>
+    <ul class="helplist">
+      <li><b>In the US: call or text 988</b><span class="s">The 988 Suicide &amp; Crisis Lifeline. Free, any hour. <a href="tel:988">Call 988</a> - <a href="sms:988">Text 988</a></span></li>
+      <li><b>Outside the US: findahelpline.com</b><span class="s">A directory of free, confidential helplines by country. <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a></span></li>
+      <li><b>If you might be in danger, call your local emergency number</b><span class="s">For example 911 in the US and Canada, 999 in the UK, 112 across the EU.</span></li>
+      <li><b>Your doctor or primary care clinic</b><span class="s">Sleep, eating and burnout are all things they hear about every day.</span></li>
+      <li><b>Your employer's EAP, if you have one</b><span class="s">Often free, confidential short-term counselling. Check your benefits page.</span></li>
+      <li><b>Find a therapist</b><span class="s"><a href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener">psychologytoday.com therapist finder</a></span></li>
+    </ul>
+    <div class="row-actions" style="margin-top:6px">
+      <button class="btn" type="button" id="helpClose">Close</button>
+      <button class="btn ghost" type="button" id="helpAck" hidden>I'm okay to continue for now</button>
+    </div>
+    <p class="soft" style="margin:14px 0 0">Human Uptime is not therapy, not medical advice, not a diagnosis. Nothing you type here is sent anywhere.</p>
+  </div>
+</dialog>
+
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const main=$('#main');
+const KEY='humanUptime.v1';
+let mem=null;
+const blank=()=>({checkins:{},burnout:[],thoughts:[],farm:[],tonight:null});
+function load(){
+  try{const r=localStorage.getItem(KEY);if(r){const d=JSON.parse(r);return Object.assign(blank(),d)}}catch(e){}
+  return mem||blank();
+}
+function save(){mem=D;try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}}
+let D=load();
+const pad=n=>String(n).padStart(2,'0');
+const dkey=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=()=>dkey(new Date());
+const fmt=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString(undefined,{month:'short',day:'numeric'})};
+let toastT;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2600)}
+
+/* ---------- crisis language matcher (exposed for tests) ---------- */
+const CRISIS=[
+ /\bsuicid/,
+ /\bkill(?:ing|ed)?\s+my\s?self\b/,
+ /\b(?:want|wants|wanna|wish|need|planning|thinking)\s+(?:to\s+|about\s+)?(?:just\s+)?kill(?:ing)?\s+me\b/,
+ /\b(?:someone|somebody|please)\s+(?:just\s+)?kill\s+me\b/,
+ /\bend(?:ing)?\s+(?:it\s+all|my\s+(?:own\s+)?life|everything)\b/,
+ /\b(?:want|wanna|going|gonna|plan|planning|ready|thinking\s+(?:of|about)|thought\s+about)\s+(?:to\s+)?end\s+it\b/,
+ /\btake\s+my\s+(?:own\s+)?life\b/,
+ /\b(?:(?:want|wants|wanted)\s+to|wanna)\s+die\b/,
+ /\bwish\s+i\s+(?:was|were)\s+(?:dead|never\s+born)\b/,
+ /\bwish\s+i\s+(?:could\s+)?(?:just\s+)?disappear\b/,
+ /\bbetter\s+off\s+(?:dead|without\s+me)\b/,
+ /\bno\s+(?:point|reason)\s+(?:in\s+|to\s+)?(?:living|live|going\s+on|go\s+on|being\s+alive|life)\b/,
+ /\b(?:dont|do\s+not)\s+want\s+to\s+(?:be\s+here|be\s+alive|live|wake\s+up|exist)\b/,
+ /\bcant\s+go\s+on\b/,
+ /\bself[\s-]?harm/,
+ /\b(?:hurt|harm|cut|injure)(?:ing)?\s+my\s?self\b/,
+ /\boverdos/, /\bunalive\b/, /\bkms\b/
+];
+function crisisMatch(text){
+  const t=String(text||'').toLowerCase().replace(/[‘’`']/g,'').replace(/[^a-z0-9\- ]+/g,' ').replace(/\s+/g,' ').trim();
+  return CRISIS.some(r=>r.test(t));
+}
+window.crisisMatch=crisisMatch;
+
+/* ---------- help dialog ---------- */
+const dlg=$('#helpDlg');
+let lastFocus=null;
+function openHelp(crisis){
+  lastFocus=document.activeElement;
+  dlg.classList.toggle('crisismode',!!crisis);
+  $('#helpAck').hidden=!crisis;
+  if(!dlg.open){ if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open',''); }
+  dlg.scrollTop=0;
+}
+function closeHelp(){ if(dlg.open) dlg.close(); if(lastFocus&&lastFocus.focus&&document.contains(lastFocus)) lastFocus.focus({preventScroll:true}); }
+$('#helpBtn').addEventListener('click',()=>openHelp(false));
+document.addEventListener('click',e=>{if(e.target.closest('[data-help]'))openHelp(false)});
+$('#helpClose').addEventListener('click',closeHelp);
+$('#helpAck').addEventListener('click',()=>{$$('textarea,input[type=text]').forEach(el=>{if(crisisMatch(el.value))el.dataset.ack=el.value});closeHelp()});
+dlg.addEventListener('click',e=>{if(e.target===dlg)closeHelp()});
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(!(el.matches&&el.matches('textarea,input[type=text]')))return;
+  if(crisisMatch(el.value)){ if(!el.dataset.crisis){el.dataset.crisis='1';openHelp(true)} }
+  else{delete el.dataset.crisis;delete el.dataset.ack}
+});
+/* before a step/save: if text is crisis-like and not yet acknowledged, show help again instead of continuing */
+function guardText(root){
+  const bad=$$('textarea,input[type=text]',root||main).filter(el=>crisisMatch(el.value)&&el.dataset.ack!==el.value);
+  if(bad.length){openHelp(true);return false}
+  return true;
+}
+
+/* ---------- speech + timers ---------- */
+let timers=[];
+const every=(fn,ms)=>{const id=setInterval(fn,ms);timers.push(id);return id};
+function stopAll(){timers.forEach(clearInterval);timers=[];try{speechSynthesis.cancel()}catch(e){}}
+const canSpeak=()=>'speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+function speakBtn(text){
+  if(!canSpeak())return '';
+  return `<button class="btn ghost small speak" type="button" data-speak="${esc(text)}" aria-pressed="false">Read this to me</button>`;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-speak]');if(!b)return;
+  if(b.getAttribute('aria-pressed')==='true'){speechSynthesis.cancel();b.setAttribute('aria-pressed','false');b.textContent='Read this to me';return}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(b.dataset.speak);u.rate=.82;u.pitch=.95;
+  u.onend=u.onerror=()=>{b.setAttribute('aria-pressed','false');b.textContent='Read this to me'};
+  b.setAttribute('aria-pressed','true');b.textContent='Stop reading';speechSynthesis.speak(u);
+});
+
+/* ---------- icons ---------- */
+const IC={
+ energy:'<path d="M13 3 5 14h6l-1 7 8-11h-6z"/>',
+ mood:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/>',
+ sleep:'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',
+ eating:'<path d="M3 11h18a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8zM8 7c0-1.5 1-1.5 1-3M12 7c0-1.5 1-1.5 1-3M16 7c0-1.5 1-1.5 1-3"/>',
+ connection:'<path d="M4 5h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2v3l-3-3h-4"/>',
+ checkin:'<path d="M12 21V11M12 12c0-4 2-6 6-6 0 4-2 6-6 6zM12 14c0-3-2-5-6-5 0 3 2 5 6 5z"/>',
+ tonight:'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/><path d="M16 4v3M14.5 5.5h3"/>',
+ burnout:'<rect x="3" y="8" width="16" height="9" rx="2"/><path d="M21 11v3M7 12v1.5"/>',
+ untangle:'<path d="M3 8c4-5 7 5 11 0s5-2 7 0M3 16c4-5 7 5 11 0s5-2 7 0"/>',
+ ground:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
+ farm:'<path d="M2 18c4-5 8-5 10-3s7 1 10-3M2 21h20M12 12V6M12 8c0-3 2-4 4-4 0 3-1 4-4 4z"/>',
+ scripts:'<path d="M5 4h14v12H9l-4 4zM9 9h6M9 12h4"/>',
+ alone:'<circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M2 20c0-4 3-6 6-6s6 2 6 6M15 15c3 0 6 1.5 7 5"/>',
+ data:'<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'
+};
+const icon=(n,c='ico')=>`<svg class="${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
+const sproutSvg=(cls='sprout-grow')=>`<svg class="${cls}" viewBox="0 0 36 44" aria-hidden="true"><path d="M18 42V20" stroke="#a3b18a" stroke-width="3" stroke-linecap="round"/><path d="M18 22c0-9 5-14 14-14 0 9-5 14-14 14zM18 27c0-7-4-11-12-11 0 7 4 11 12 11z" fill="#f0b25a"/></svg>`;
+
+/* ---------- the scene: farm at dawn ---------- */
+function hourNow(){const d=new Date();return d.getHours()+d.getMinutes()/60}
+function skyFor(h){
+  if(h>=5&&h<8.5) return {top:'#1d1410',mid:'#4a2c1a',hor:'#c9722f',glow:.75};
+  if(h>=8.5&&h<17) return {top:'#2a2418',mid:'#4a3a22',hor:'#9a7234',glow:.5};
+  if(h>=17&&h<20) return {top:'#1e1411',mid:'#4d2a1d',hor:'#b4592c',glow:.65};
+  return {top:'#110b08',mid:'#21150e',hor:'#3b2415',glow:.28};
+}
+function rnd(seed){let s=seed;return()=>{s=(s*16807)%2147483647;return(s-1)/2147483646}}
+function buildScene(){
+  const svg=$('#scene');const W=Math.max(320,innerWidth),H=Math.max(480,innerHeight);
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const h=hourNow(),sky=skyFor(h),night=(h<5||h>=20);
+  const hz=H*(W<600?.8:.74);
+  const hill=(base,amp,ph,f)=>{let d=`M0 ${H} L0 ${base}`;for(let x=0;x<=W+20;x+=16)d+=` L${x} ${(base+Math.sin(x*f+ph)*amp+Math.sin(x*f*2.3+ph*1.7)*amp*.35).toFixed(1)}`;return d+` L${W} ${H} Z`};
+  const hy=(base,amp,ph,f,x)=>base+Math.sin(x*f+ph)*amp+Math.sin(x*f*2.3+ph*1.7)*amp*.35;
+  const t=Math.min(1,Math.max(0,(h-5.5)/13));
+  let sx=W*(.12+.76*t),sy=hz-Math.sin(Math.PI*t)*H*.46+8;
+  if(h<5.5||h>18.5){sx=W*(h>18.5?.88:.12);sy=hz+30}
+  let s=`<defs>
+   <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sky.top}"/><stop offset=".55" stop-color="${sky.mid}"/><stop offset="1" stop-color="${sky.hor}"/></linearGradient>
+   <radialGradient id="glow"><stop offset="0" stop-color="#ffd08a" stop-opacity="${sky.glow}"/><stop offset=".4" stop-color="#f0b25a" stop-opacity="${sky.glow*.35}"/><stop offset="1" stop-color="#f0b25a" stop-opacity="0"/></radialGradient>
+   <radialGradient id="sunf"><stop offset="0" stop-color="#fff0cf"/><stop offset=".7" stop-color="#ffc872"/><stop offset="1" stop-color="#f0a443"/></radialGradient><clipPath id="nearclip"><path d="${hill(H*.88,H*.012,2,.004)}"/></clipPath>
+  </defs><rect width="${W}" height="${H}" fill="url(#sky)"/>`;
+  if(night){const r=rnd(7);for(let i=0;i<46;i++)s+=`<circle cx="${(r()*W).toFixed(0)}" cy="${(r()*hz*.8).toFixed(0)}" r="${(r()*1.4+.4).toFixed(1)}" fill="#f4ead5" opacity="${(r()*.5+.2).toFixed(2)}"/>`}
+  s+=`<circle cx="${sx}" cy="${sy}" r="${Math.min(W,H)*.5}" fill="url(#glow)"/>`;
+  s+=`<circle cx="${sx}" cy="${sy}" r="${Math.max(30,Math.min(W,H)*.045)}" fill="url(#sunf)" opacity="${night?.0:.95}"/>`;
+  s+=`<path d="${hill(hz-6,H*.03,1,.006)}" fill="#3b2c1b" opacity=".9"/>`;
+  s+=`<path d="${hill(hz+H*.04,H*.03,3,.005)}" fill="#2f2417"/>`;
+  s+=`<path d="${hill(hz+H*.09,H*.025,5,.004)}" fill="#261b12"/>`;
+  s+=`<path d="${hill(H*.88,H*.012,2,.004)}" fill="#1d140d"/>`;
+  s+=`<g clip-path="url(#nearclip)" stroke="#a3b18a" stroke-opacity=".16" stroke-width="2" fill="none">`;
+  for(let i=-10;i<=10;i++){const xb=W/2+i*W*.11,xt=W/2+i*W*.018;s+=`<path d="M${xb} ${H} Q${(xb+xt)/2} ${H*.93} ${xt} ${H*.87}"/>`}
+  s+=`</g>`;
+  const n=Math.min(Object.keys(D.checkins).length,18),r2=rnd(11);
+  for(let i=0;i<n;i++){
+    const x=((i+.5)/Math.max(n,10))*W*.9+W*.05+(r2()-.5)*20,base=H*.88;
+    const y=hy(base,H*.012,2,.004,x)+10+r2()*H*.07,sc=(.6+.5*(y-base)/(H*.08))*(W<600?.8:1);
+    s+=`<g transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(${sc.toFixed(2)})"><g class="sp" style="animation-delay:${(i*.08).toFixed(2)}s"><path d="M0 0V-26" stroke="#a3b18a" stroke-width="3" stroke-linecap="round"/><path d="M0-24c0-9 5-14 14-14 0 9-5 14-14 14zM0-18c0-7-4-11-12-11 0 7 4 11 12 11z" fill="#f0b25a"/></g></g>`;
+  }
+  svg.innerHTML=s;
+}
+let rsT;addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(buildScene,150)});
+setInterval(buildScene,5*60*1000);
+
+/* ---------- data views of the data ---------- */
+const METRICS=[
+ {k:'energy',n:'Energy',q:"How's the tank?",w:['Drained','Low','Okay','Good','Bright']},
+ {k:'mood',n:'Mood',q:'The weather inside',w:['Heavy','Grey','Mixed','Mostly fine','Light']},
+ {k:'sleep',n:'Sleep',q:'Last night',w:['Barely','Poor','So-so','Decent','Rested']},
+ {k:'eating',n:'Eating',q:'Did food happen?',w:['Hardly','A little','Some','Mostly','Properly']},
+ {k:'connection',n:'Connection',q:'Did I talk to a human?',w:['No one','A text','A short chat','A real talk','Time together']}
+];
+const COL=['#7a5a58','#a67c52','#d9a441','#a9b57a','#7fb069'];
+const entries=()=>Object.entries(D.checkins).sort((a,b)=>a[0]<b[0]?-1:1);
+const avg=e=>METRICS.reduce((a,m)=>a+(e[m.k]||3),0)/METRICS.length;
+function strip(){
+  const now=new Date();let cells='',done=0;
+  for(let i=29;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i),k=dkey(d),e=D.checkins[k],lab=d.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+    if(e){done++;cells+=`<i style="--c:${COL[Math.min(4,Math.max(0,Math.round(avg(e))-1))]}" title="${lab}: checked in" class="${i===0?'today':''}"></i>`}
+    else cells+=`<i class="mw ${i===0?'today':''}" title="${lab}: maintenance window (rest counts)"></i>`;
+  }
+  return {html:`<div class="strip" role="img" aria-label="Uptime, last 30 days: ${done} check-ins, ${30-done} maintenance windows">${cells}</div>`,done};
+}
+function statusWord(){
+  const e=entries().slice(-7);if(!e.length)return 'just installed';
+  const a=e.reduce((x,y)=>x+avg(y[1]),0)/e.length;
+  return a>=3.8?'steady':a>=2.8?'tending':'healing';
+}
+const lowRun=k=>{const e=entries();let n=0;for(let i=e.length-1;i>=0;i--){if(e[i][1][k]<=2)n++;else break}return n};
+const ACT={
+ sleep:{t:"Protect tonight: lights low and screens off 30 minutes earlier than usual.",o:'Sleep'},
+ eating:{t:"Eat something small and simple in the next hour: toast, yoghurt, a banana, soup, crackers and cheese. Anything counts.",o:'Eating'},
+ connection:{t:"Send one text to one person: \"Thinking of you. Got ten minutes this week?\"",o:'Connection'},
+ energy:{t:"Drink a glass of water and step outside for five minutes. A doorway counts.",o:'Energy'},
+ mood:{t:"Do one tiny kind thing for yourself: a warm drink, a short walk, music you like.",o:'Mood'}
+};
+function observe(){
+  const e=entries();if(!e.length)return null;
+  const last=e[e.length-1][1];
+  let best=null,bn=0;
+  ['eating','sleep','connection','energy','mood'].forEach(k=>{const n=lowRun(k);if(n>=3&&n>bn){best=k;bn=n}});
+  let text,k;
+  if(best){k=best;text=`${ACT[best].o} has been low for ${bn} check-ins in a row. That's worth protecting tonight.`}
+  else{
+    const low=['eating','sleep','connection','energy','mood'].find(x=>last[x]<=2);
+    if(low){k=low;text=`${ACT[low].o} is low today. That's information, not a verdict.`}
+    else if(e.length>=3&&e.slice(-3).every(x=>avg(x[1])>=3.5)){k=null;text="A steady few days. Notice what's been helping and keep it close."}
+    else{k=null;text="Checked in. That is the whole job for today."}
+  }
+  const o={text,action:k?ACT[k].t:"Do one small thing that's just for you: a drink, a stretch, a song.",k};
+  if(k==='eating'&&(bn>=3||last.eating<=2))o.note="If eating has been hard for more than a couple of weeks, please tell a doctor.";
+  if(k==='sleep'&&bn>=3)o.note="If sleep has been rough for a few weeks, it's worth mentioning to your doctor.";
+  return o;
+}
+
+/* ---------- views ---------- */
+const NAV=[['/','Home'],['/checkin','Check-in'],['/tonight','Tonight'],['/burnout','Burnout'],['/untangle','Untangle'],['/ground','Ground'],['/farm','Farm'],['/scripts','Scripts'],['/alone','Not alone'],['/data','My data']];
+$('#nav').innerHTML=NAV.map(([h,n])=>`<a href="#${h}" data-r="${h}">${n}</a>`).join('');
+const V={};
+
+V['/']=()=>{
+  const st=strip(),w=statusWord();
+  main.innerHTML=`
+  <section class="hero">
+    <p class="kicker mono">$ uptime --human</p>
+    <h1 tabindex="-1">How are you, really?</h1>
+    <p class="sub">You're not a server. Check in on yourself.</p>
+    <a class="big" href="#/checkin">Check in <small>about 60 seconds</small></a>
+    <p class="honest"><b>Not therapy, not medical advice, not a diagnosis.</b> A gentle tool and a nudge toward real people.</p>
+    <p class="priv">Everything stays in this browser. No accounts, no tracking, nothing sent anywhere.</p>
+  </section>
+  <section class="wrap">
+    <div class="card uptime">
+      <div class="termline">$ uptime &nbsp;&gt;&nbsp; ${st.done} of last 30 days checked in &middot; status: ${w}</div>
+      ${st.html}
+      <div class="legend"><span><i style="background:${COL[0]}"></i>heavier</span><span><i style="background:${COL[2]}"></i>middling</span><span><i style="background:${COL[4]}"></i>lighter</span><span><i style="border:1px dashed rgba(244,234,213,.4)"></i>maintenance window (a day off the grid is fine)</span></div>
+    </div>
+    <div class="tiles">
+      ${[['checkin','/checkin','Daily check-in','Five quick taps. A plain-language read.'],
+        ['tonight','/tonight','Tonight','Three tiny things to tick.'],
+        ['burnout','/burnout','Burnout check-in','12 short questions. Not a test.'],
+        ['untangle','/untangle','Thought untangler','Loosen the "it is all on me" thoughts.'],
+        ['ground','/ground','Ground and breathe','Breathing, 5-4-3-2-1, shoulders, outside.'],
+        ['farm','/farm','The farm daydream','Treat the urge to quit and farm as information.'],
+        ['scripts','/scripts','Say it for me','Copy-paste words for hard asks.'],
+        ['alone','/alone',"You're not the only one",'Short, true, un-sensational.']]
+        .map(([i,h,t,d])=>`<a class="tile" href="#${h}">${icon(i)}<div><b>${t}</b><span>${d}</span></div></a>`).join('')}
+    </div>
+  </section>`;
+};
+
+let ciResult=null;
+V['/checkin']=()=>{
+  const prev=D.checkins[today()];
+  if(ciResult){
+    const o=observe(),n=Object.keys(D.checkins).length;
+    main.innerHTML=`<div class="wrap narrow"><div class="card">
+      <div class="top-row">${sproutSvg()}<h1 tabindex="-1" style="margin:0">Logged. A sprout grew.</h1></div>
+      <p class="termline">status: ${statusWord()} &middot; ${n} check-in${n===1?'':'s'} so far</p>
+      ${o?`<div class="obs"><p>${esc(o.text)}</p></div>
+      <div class="action"><b>One small thing:</b> ${esc(o.action)}</div>${o.note?`<p class="note">${esc(o.note)}</p>`:''}`:''}
+      <div class="row-actions"><a class="btn" href="#/tonight">Plan tonight</a><a class="btn ghost" href="#/">See my uptime</a></div>
+    </div>
+    <div class="card"><div class="termline">$ uptime</div>${strip().html}</div></div>`;
+    ciResult=null;return;
+  }
+  main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Check in</h1>
+  <p class="lead">One tap each. No right answers. ${prev?'(You already checked in today. Saving again updates it.)':''}</p>
+  <form class="card" id="ciForm" novalidate>
+    ${METRICS.map(m=>`<fieldset class="metric"><legend>${icon(m.k)}${m.n} <small>${m.q}</small></legend><div class="scale">
+      ${m.w.map((w,i)=>`<label class="opt"><input type="radio" name="${m.k}" value="${i+1}" ${prev&&prev[m.k]===i+1?'checked':''} aria-label="${m.n}: ${w}, ${i+1} of 5"><span class="orb" style="--f:${(i+1)/5};--oc:${COL[i]}"></span><b>${w}</b></label>`).join('')}
+    </div></fieldset>`).join('')}
+    <div class="metric"><label class="fl" for="weigh">One thing weighing on me <span class="soft">(optional)</span></label>
+    <textarea id="weigh" name="weigh" rows="2" placeholder="A few words is plenty. It stays on this device.">${esc(prev&&prev.weigh||'')}</textarea></div>
+    <div class="row-actions"><button class="btn" type="submit" id="ciSave">Log it</button><span class="note" id="ciLeft" aria-live="polite"></span></div>
+  </form></div>`;
+  const f=$('#ciForm'),upd=()=>{const left=METRICS.filter(m=>!f.elements[m.k].value).map(m=>m.n);$('#ciLeft').textContent=left.length?'Still to pick: '+left.join(', '):'All set.';$('#ciSave').disabled=left.length>0;return left.length===0};
+  f.addEventListener('change',upd);upd();
+  f.addEventListener('submit',e=>{
+    e.preventDefault();if(!upd())return;
+    if(!guardText(f))return;
+    const o={ts:Date.now(),weigh:f.elements.weigh.value.trim()};
+    METRICS.forEach(m=>o[m.k]=+f.elements[m.k].value);
+    D.checkins[today()]=o;save();ciResult=true;buildScene();render();
+  });
+};
+
+const POOL={
+ eat:{t:'Eat something small and simple',h:'Toast, a banana, yoghurt, soup, crackers and cheese. Anything counts.'},
+ water:{t:'Drink a glass of water',h:'Then maybe another one later.'},
+ outside:{t:'Step outside for 5 minutes',h:'A doorway or an open window counts too.'},
+ text:{t:'Text one person',h:'"Thinking of you. Free for a call this week?"'},
+ screen:{t:'Screens off by',h:'Pick a time you can actually keep.'},
+ lights:{t:'Lights low for the last hour',h:'Lamps instead of the big light, if you have them.'}
+};
+function planTonight(){
+  const l=entries().slice(-1)[0];const order=[];const add=(...x)=>x.forEach(i=>{if(!order.includes(i))order.push(i)});
+  if(l){const c=l[1];if(c.eating<=2)add('eat');if(c.sleep<=2)add('screen','lights');if(c.connection<=2)add('text');if(c.energy<=2)add('water','outside');if(c.mood<=2)add('outside')}
+  add('eat','water','outside','text','screen','lights');
+  return {date:today(),ids:order.slice(0,3),all:order,done:{},screenBy:'22:00'};
+}
+const CHEER=['Nice. That counts.','One small thing, done.','That is real. Well done.','Look at you, tending the field.'];
+V['/tonight']=()=>{
+  if(!D.tonight||D.tonight.date!==today()){D.tonight=planTonight();save()}
+  const T=D.tonight;let more=false;
+  const draw=()=>{
+    const ids=more?T.all:T.ids,dn=T.ids.filter(i=>T.done[i]).length;
+    main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Tonight</h1>
+    <p class="lead">Three tiny things. Tick what you do. Skipping is fine, there is no score.</p>
+    <div class="card">${ids.map(id=>{const p=POOL[id];return `<label class="todo"><input type="checkbox" data-id="${id}" ${T.done[id]?'checked':''}>
+      <span><span class="tt">${p.t}${id==='screen'?` <select id="scrSel" aria-label="Screens off time">${['21:00','21:30','22:00','22:30','23:00','23:30'].map(t=>`<option ${t===T.screenBy?'selected':''}>${t}</option>`).join('')}</select>`:''}</span><span class="hint">${p.h}</span></span>${T.done[id]?`<svg class="pop" viewBox="0 0 36 44" aria-hidden="true"><path d="M18 42V20" stroke="#a3b18a" stroke-width="3" stroke-linecap="round"/><path d="M18 22c0-9 5-14 14-14 0 9-5 14-14 14zM18 27c0-7-4-11-12-11 0 7 4 11 12 11z" fill="#f0b25a"/></svg>`:''}</label>`}).join('')}
+    <p class="termline" id="tStat">${dn===3?'status: healing. All three done, that is plenty for one night.':`${dn} of 3 ticked`}</p>
+    <div class="row-actions"><button class="btn ghost small" type="button" id="moreBtn">${more?'Show just three':'Show all six ideas'}</button></div></div>
+    <p class="note">Rough nights happen. If sleep or eating has been hard for more than a couple of weeks, tell a doctor.</p></div>`;
+    $$('.todo input').forEach(c=>c.addEventListener('change',()=>{T.done[c.dataset.id]=c.checked;save();if(c.checked){const all=T.ids.every(i=>T.done[i]);draw();toast(all?'All three. That is a good night of tending.':CHEER[Math.floor(Math.random()*CHEER.length)])}else draw();const x=$(`.todo input[data-id="${c.dataset.id}"]`);x&&x.focus({preventScroll:true})}));
+    const s=$('#scrSel');if(s){s.addEventListener('change',()=>{T.screenBy=s.value;save()});s.addEventListener('click',e=>e.stopPropagation())}
+    $('#moreBtn').addEventListener('click',()=>{more=!more;draw()});
+  };
+  draw();
+};
+
+/* burnout */
+const BQ=[
+ ['ex',"By the end of the working day I have nothing left for myself."],
+ ['ex',"Even after a night in bed, I wake up already tired."],
+ ['ex',"Small requests at work feel heavier than they should."],
+ ['ex',"My head stays on call even when my body is off shift."],
+ ['de',"I care less about parts of my work that used to matter to me."],
+ ['de',"I catch myself being sarcastic or numb about the job more than I'd like."],
+ ['de',"I keep people at arm's length so I don't have to explain how I'm doing."],
+ ['de',"I daydream about leaving this field entirely."],
+ ['ef',"I still finish things at work that I feel decent about."],
+ ['ef',"I trust my judgement when something breaks."],
+ ['ef',"I feel I'm still learning and growing in what I do."],
+ ['ef',"I feel my work makes a difference to someone."]
+];
+const BOPT=['Not at all','A little','Sometimes','Often','Almost always'];
+const BDIM={
+ ex:{n:'Exhaustion',lv:['Light','Noticeable','Heavy'],
+  mean:["Your tank looks mostly okay right now.","You're running on reserves some days. That's common after long stretches of alerts and on-call.","Your body and mind are asking for real rest, not just a weekend."],
+  help:["Keep the small rest habits you already have.","Protect one off-hours block this week where nothing work-related can reach you.","Tell one person how tired you are, and think about mentioning how long this has gone on to your doctor. Sleep, food and a proper break come first."]},
+ de:{n:'Distance and cynicism',lv:['Light','Noticeable','Heavy'],
+  mean:["You still feel connected to the work and the people around it.","Some distance has crept in: caring less, more sarcasm. That's often a protective move, not a character flaw.","There's a lot of distance. When caring hurts, minds sometimes switch it off to cope."],
+  help:["Keep what's keeping you connected.","Give 20 unhurried minutes to a part of the job you used to like. Talk to someone outside your team.","Name it to someone you trust. A counsellor, or your employer's EAP if you have one, is a good fit for this."]},
+ ef:{n:'Sense of effectiveness',lv:['Solid','Wobbly','Faint'],
+  mean:["You still feel capable. Hold on to that when the tiredness starts talking.","Confidence is wobbling. Exhaustion blurs how good you actually are.","It feels like you're not making a difference. Exhausted minds are poor judges of this."],
+  help:["Write down two things you handled well this week.","Ask a colleague for a sanity check on something small. Treat it as data, not a verdict.","Look back at closed tickets or thank-yous you've kept. Talk it through with a mentor or someone who knows your work."]}
+};
+let bState={i:-1,a:[]};
+V['/burnout']=()=>{
+  const lastB=D.burnout[D.burnout.length-1];
+  if(bState.i===-1){
+    main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Burnout check-in</h1>
+    <p class="lead">Twelve short questions about the past couple of weeks. About two minutes.</p>
+    <div class="card"><p><b>This is not a diagnosis and not a test.</b> It can't tell you what is wrong. It just draws a gentle picture of where things feel heavy, so you have something to act on. If these feelings stick around, please talk to a professional.</p>
+    ${lastB?`<p class="note">Last time: ${fmt(dkey(new Date(lastB.ts)))}. Feelings change, and that's allowed.</p>`:''}
+    <div class="row-actions"><button class="btn" id="bgo" type="button">Start</button></div></div></div>`;
+    $('#bgo').onclick=()=>{bState={i:0,a:[]};render()};return;
+  }
+  if(bState.i<BQ.length){
+    const i=bState.i,cur=bState.a[i];
+    main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1" class="sr">Burnout check-in question ${i+1} of 12</h1>
+    <p class="termline">Question ${i+1} of ${BQ.length}</p><div class="progress"><i style="width:${(i/BQ.length)*100}%"></i></div>
+    <div class="card"><p class="soft">Over the past couple of weeks...</p><h2 style="font-size:1.45rem">${BQ[i][1]}</h2>
+    <div class="choices">${BOPT.map((o,v)=>`<button class="choice" type="button" data-v="${v}" aria-pressed="${cur===v}">${o}</button>`).join('')}</div>
+    <div class="row-actions">${i>0?'<button class="btn ghost small" id="bback" type="button">Back</button>':''}</div></div></div>`;
+    $$('.choice').forEach(b=>b.onclick=()=>{bState.a[i]=+b.dataset.v;bState.i++;render()});
+    const bb=$('#bback');if(bb)bb.onclick=()=>{bState.i--;render()};
+    return;
+  }
+  const sc={ex:0,de:0,ef:0};BQ.forEach((q,i)=>sc[q[0]]+=bState.a[i]);
+  const lv=k=>{const s=sc[k];if(k==='ef')return s>=11?0:s>=6?1:2;return s<=5?0:s<=10?1:2};
+  const L={ex:lv('ex'),de:lv('de'),ef:lv('ef')};
+  if(!bState.saved){D.burnout.push({ts:Date.now(),sc,L});save();bState.saved=true}
+  const heavy=Object.values(L).filter(x=>x===2).length;
+  const colr=['var(--sage)','var(--amber)','#c98a5a'];
+  main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Your gentle picture</h1>
+  <p class="lead">Not a score. Just where things feel heavier or lighter lately.</p>
+  <div class="card">${['ex','de','ef'].map(k=>{const d=BDIM[k],l=L[k];return `<div class="dim"><div class="bar"><div class="lab"><span>${d.n}</span><span class="lvl">${d.lv[l]}</span></div><div class="tr"><i style="width:${[34,67,100][l]}%;background:${colr[l]}"></i></div></div>
+   <p style="margin-top:10px"><b>What this might mean:</b> ${d.mean[l]}</p><p><b>What could help this week:</b> ${d.help[l]}</p></div>`}).join('')}</div>
+  ${heavy>=2||L.ex===2?`<div class="action"><b>Worth a real conversation.</b> Several of these feel heavy. That isn't a diagnosis, but it's a good reason to talk to your doctor or a counsellor this week. <button class="btn small" type="button" data-help style="margin-top:8px">Show me who to reach</button></div>`:''}
+  <div class="card"><p style="margin:0"><b>Remember:</b> this is not a diagnosis, and it can't see your whole life. Persistent symptoms are worth discussing with a professional. A rough two weeks does not mean you are broken.</p></div>
+  <div class="row-actions"><a class="btn" href="#/tonight">Plan tonight</a><a class="btn ghost" href="#/scripts">Words for asking for help</a><button class="btn ghost" type="button" id="bagain">Do it again later</button></div></div>`;
+  $('#bagain').onclick=()=>{bState={i:-1,a:[]};render()};
+};
+
+/* thought untangler */
+const THOUGHTS=[
+ ["If I miss an alert, it's all on me.","Alerts are caught by systems, teammates and process. I do my part, and I'm one layer of several."],
+ ["Everyone else knows more than me.","I'm comparing my insides to other people's highlights. Everyone has gaps, and they hide them too."],
+ ["Asking for help means I'm weak.","Asking for help early is how good engineers avoid big incidents. It's a skill."],
+ ["I should be able to handle this alone.","Nobody handles on-call alone well for long. Sharing the load is part of the job design."],
+ ["Taking a break is irresponsible.","A rested person makes better calls. Breaks are maintenance, and the system should survive an hour without me."],
+ ["I'm only as good as my last incident.","One incident is one data point. My track record is years of work, and I learn from every one."]
+];
+let uState={s:0,thought:'',b0:50,forT:'',against:'',friend:'',bal:'',b1:50,saved:false};
+V['/untangle']=()=>{
+  const U=uState,steps=7;
+  const head=`<p class="termline">Step ${Math.min(U.s+1,steps)} of ${steps}</p><div class="progress"><i style="width:${Math.min(U.s/ (steps-1),1)*100}%"></i></div>`;
+  const wrap=(inner)=>{main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Thought untangler</h1>${head}<div class="card">${inner}</div>${U.s===0?journalHTML():''}</div>`;$$('[data-jdel]').forEach(b=>b.onclick=()=>{D.thoughts.splice(+b.dataset.jdel,1);save();render()})};
+  const nav=(back,label,id='unext')=>`<div class="row-actions">${back?'<button class="btn ghost small" type="button" id="uback">Back</button>':''}<button class="btn" type="button" id="${id}">${label}</button></div>`;
+  const bind=(next)=>{const n=$('#unext');if(n)n.onclick=()=>{if(!guardText(main))return;next&&next();U.s++;render()};const b=$('#uback');if(b)b.onclick=()=>{U.s--;render()}};
+  if(U.s===0){
+    wrap(`<p class="lead">Pick a thought that's been loud, or write your own.</p>
+     <div class="chips">${THOUGHTS.map((t,i)=>`<button class="chip" type="button" data-t="${i}" aria-pressed="${U.thought===t[0]}">${t[0]}</button>`).join('')}</div>
+     <label class="fl" for="ut" style="margin-top:18px">Or type your own</label><input type="text" id="ut" value="${esc(THOUGHTS.some(t=>t[0]===U.thought)?'':U.thought)}" placeholder="The thought, in your words">
+     ${nav(false,'Next')}`);
+    $$('.chip').forEach(c=>c.onclick=()=>{U.thought=THOUGHTS[+c.dataset.t][0];$('#ut').value='';$$('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c))});
+    $('#ut').addEventListener('input',e=>{if(e.target.value){U.thought=e.target.value;$$('.chip').forEach(x=>x.setAttribute('aria-pressed','false'))}});
+    $('#unext').onclick=()=>{const v=$('#ut').value.trim();if(v)U.thought=v;if(!U.thought){toast('Pick or type a thought first');return}if(!guardText(main))return;U.s++;render()};
+  }else if(U.s===1){
+    wrap(`<p class="soft">The thought</p><h2 style="font-size:1.4rem">"${esc(U.thought)}"</h2><label class="fl" for="ub">How much do you believe it right now?</label>
+     <div class="rangeRow"><input type="range" id="ub" min="0" max="100" value="${U.b0}"><output id="uo">${U.b0}%</output></div>${nav(true,'Next')}`);
+    $('#ub').oninput=e=>{U.b0=+e.target.value;$('#uo').textContent=U.b0+'%'};bind();
+  }else if(U.s===2){
+    wrap(`<p class="soft">"${esc(U.thought)}"</p><label class="fl" for="uf">What makes this feel true? What is the evidence for it?</label><textarea id="uf" placeholder="Facts only, as if you were writing a ticket">${esc(U.forT)}</textarea>${nav(true,'Next')}`);
+    $('#uf').oninput=e=>U.forT=e.target.value;bind();
+  }else if(U.s===3){
+    wrap(`<p class="soft">"${esc(U.thought)}"</p><label class="fl" for="ua">What's the evidence against it? What does it leave out?</label><textarea id="ua" placeholder="Times it wasn't true. Other people involved. What you did right.">${esc(U.against)}</textarea>${nav(true,'Next')}`);
+    $('#ua').oninput=e=>U.against=e.target.value;bind();
+  }else if(U.s===4){
+    wrap(`<p class="soft">"${esc(U.thought)}"</p><label class="fl" for="ur">If a friend on your team told you this, what would you say to them?</label><textarea id="ur" placeholder="Say it kindly, the way you would to them">${esc(U.friend)}</textarea>${nav(true,'Next')}`);
+    $('#ur').oninput=e=>U.friend=e.target.value;bind();
+  }else if(U.s===5){
+    const ex=(THOUGHTS.find(t=>t[0]===U.thought)||[])[1];
+    wrap(`<p class="soft">"${esc(U.thought)}"</p><label class="fl" for="ul">A more balanced version, one you could half-believe:</label><textarea id="ul" placeholder="Not cheerful. Just fairer.">${esc(U.bal)}</textarea>
+     ${ex?`<details><summary>Need a starting point?</summary><p class="note">${esc(ex)}</p><button class="btn ghost small" type="button" id="uuse">Use this as a start</button></details>`:''}${nav(true,'Next')}`);
+    $('#ul').oninput=e=>U.bal=e.target.value;bind();
+    const u=$('#uuse');if(u)u.onclick=()=>{U.bal=ex;render()};
+  }else if(U.s===6){
+    wrap(`<p class="soft">Original thought</p><p><b>"${esc(U.thought)}"</b></p><p class="soft">Balanced version</p><p><b>"${esc(U.bal||'(none written)')}"</b></p>
+     <label class="fl" for="ub2">How much do you believe the original thought now?</label><div class="rangeRow"><input type="range" id="ub2" min="0" max="100" value="${U.b1}"><output id="uo2">${U.b1}%</output></div>${nav(true,'Save to my journal','usave')}`);
+    $('#ub2').oninput=e=>{U.b1=+e.target.value;$('#uo2').textContent=U.b1+'%'};
+    $('#uback').onclick=()=>{U.s--;render()};
+    $('#usave').onclick=()=>{if(!guardText(main))return;D.thoughts.unshift({ts:Date.now(),thought:U.thought,b0:U.b0,b1:U.b1,forT:U.forT,against:U.against,friend:U.friend,bal:U.bal});save();U.s=7;render()};
+  }else{
+    const d=D.thoughts[0]||U;
+    main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Untangled a little</h1><div class="card">
+     <div class="ba"><span>${d.b0}%</span><span>&rarr;</span><span>${d.b1}%</span></div>
+     <p>${d.b1<d.b0?'The thought loosened. Even a few points is real movement.':d.b1===d.b0?'It held steady, and that is okay. Thoughts like this take repetition. Writing it down still counts.':'It feels stronger right now. That happens when we are tired. Be kind to yourself and try again after rest.'}</p>
+     <p class="note">Saved in your journal on this device.</p>
+     <div class="row-actions"><button class="btn" id="uagain" type="button">Untangle another</button><a class="btn ghost" href="#/ground">Ground for a minute</a></div></div></div>`;
+    $('#uagain').onclick=()=>{uState={s:0,thought:'',b0:50,forT:'',against:'',friend:'',bal:'',b1:50};render()};
+  }
+};
+function journalHTML(){
+  if(!D.thoughts.length)return '';
+  return `<h2 style="margin-top:26px">My journal</h2><div class="journal">${D.thoughts.map((t,i)=>`<div class="jitem"><div class="meta">${fmt(dkey(new Date(t.ts)))} &middot; belief ${t.b0}% &rarr; ${t.b1}%</div><p style="margin:.3em 0"><b>"${esc(t.thought)}"</b></p>${t.bal?`<p style="margin:0 0 .4em">Balanced: ${esc(t.bal)}</p>`:''}<button class="btn ghost small" type="button" data-jdel="${i}" aria-label="Delete this journal entry">Delete entry</button></div>`).join('')}</div>`;
+}
+
+/* grounding */
+let gTab='box';
+const TOOLS=[['box','Box breathing'],['g54321','5-4-3-2-1'],['jaw','Shoulders and jaw'],['out','Step outside'],['wind','Wind down for sleep']];
+V['/ground']=()=>{
+  main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Ground and breathe</h1>
+  <div class="tabs" role="tablist" aria-label="Tools">${TOOLS.map(([k,n])=>`<button role="tab" id="tab-${k}" aria-selected="${k===gTab}" aria-controls="gpanel" data-k="${k}">${n}</button>`).join('')}</div>
+  <div class="card" id="gpanel" role="tabpanel" aria-labelledby="tab-${gTab}"></div></div>`;
+  $$('.tabs button').forEach(b=>b.onclick=()=>{gTab=b.dataset.k;stopAll();render()});
+  const p=$('#gpanel');({box:gBox,g54321:g54321,jaw:gJaw,out:gOut,wind:gWind})[gTab](p);
+};
+function gBox(p){
+  const VT="Box breathing. Breathe in for four. Hold for four. Breathe out for four. Hold for four. Follow the dot around the square. Go gently, and stop any time.";
+  p.innerHTML=`<div class="top-row"><h2 style="margin:0">Box breathing</h2>${speakBtn(VT)}</div><p class="lead">60 seconds. In 4, hold 4, out 4, hold 4. Follow the dot.</p>
+  <div class="stage"><div class="box" id="bx"><div class="core" id="core"></div><div class="dotm" id="dot"></div></div></div>
+  <p class="phase" id="ph" aria-live="polite">Ready when you are</p><p class="count" id="cn">1:00</p>
+  <div class="row-actions" style="justify-content:center"><button class="btn" id="bstart" type="button">Start</button></div>
+  <p class="soft" style="text-align:center">If you feel dizzy, breathe normally and stop.</p>`;
+  const bx=$('#bx'),dot=$('#dot'),core=$('#core'),ph=$('#ph'),cn=$('#cn'),btn=$('#bstart');
+  const names=['Breathe in','Hold','Breathe out','Hold'];let run=false;
+  const place=(phase)=>{const s=bx.clientWidth;const pos=[[0,-s],[s,-s],[s,0],[0,0]][phase];dot.style.transform=`translate(${pos[0]}px,${pos[1]}px)`;core.style.transform=phase===0||phase===1?'scale(1)':'scale(.55)'};
+  btn.onclick=()=>{
+    if(run){stopAll();run=false;btn.textContent='Start';ph.textContent='Paused. Come back any time.';return}
+    run=true;btn.textContent='Stop';let el=0;dot.style.transition='none';dot.style.transform='translate(0,0)';core.style.transform='scale(.55)';
+    void dot.offsetWidth;dot.style.transition='';
+    const tick=()=>{
+      const phase=Math.floor(el/4)%4,left=4-(el%4);
+      ph.textContent=names[phase];cn.textContent=`${left}  ·  ${Math.floor((60-el)/60)}:${pad((60-el)%60)}`;
+      if(el%4===0)place(phase);
+      if(RM){dot.style.transition='none';core.style.transition='none'}
+      el++;if(el>60){stopAll();run=false;btn.textContent='Again';ph.textContent='Done. Notice your shoulders.';cn.textContent='0:00'}
+    };
+    tick();every(tick,1000);
+  };
+}
+function g54321(p){
+  const S=[[5,'things you can see','Look around slowly. Name five.'],[4,'things you can touch','Feel your feet, the chair, your sleeves, a cool surface.'],[3,'things you can hear','Near sounds, far sounds, the hum under them.'],[2,'things you can smell','Or remember two smells you like.'],[1,'thing you can taste','Or take one slow breath, in and out.']];
+  const VT="Five, four, three, two, one grounding. Name five things you can see. Four things you can touch. Three things you can hear. Two things you can smell. One thing you can taste, or one slow breath.";
+  let i=0;
+  const draw=()=>{
+    if(i>=S.length){p.innerHTML=`<h2>You are here.</h2><p class="lead">Feet on the floor, breath in your body. That was the whole thing.</p><div class="row-actions"><button class="btn" id="g0" type="button">Do it again</button><a class="btn ghost" href="#/tonight">Plan tonight</a></div>`;$('#g0').onclick=()=>{i=0;draw()};return}
+    const s=S[i];
+    p.innerHTML=`<div class="top-row"><h2 style="margin:0">5-4-3-2-1</h2>${speakBtn(VT)}</div><div class="bigstep"><div class="n" aria-hidden="true">${s[0]}</div><h3>${s[1]}</h3><p class="lead">${s[2]}</p></div>
+    <div class="row-actions" style="justify-content:center"><button class="btn" id="gnext" type="button">${i===4?'Finish':'Got them'}</button></div>`;
+    $('#gnext').onclick=()=>{i++;draw();const h=$('#gnext')||$('#g0');h&&h.focus({preventScroll:true})};
+  };draw();
+}
+function timed(p,o){
+  const total=o.steps.reduce((a,s)=>a+s[0],0);
+  p.innerHTML=`<div class="top-row"><h2 style="margin:0">${o.title}</h2>${speakBtn(o.voice)}</div><p class="lead">${o.lead}</p>
+   ${o.pre||''}<div class="card" style="background:rgba(0,0,0,.25)"><p class="phase" id="tp" aria-live="polite" style="font-size:1.45rem;min-height:3.4em">${o.idle}</p><div class="progress"><i id="tbar" style="width:0%"></i></div><p class="count" id="tc">${Math.floor(total/60)}:${pad(total%60)}</p></div>
+   <div class="row-actions"><button class="btn" id="tgo" type="button">Start</button></div><p class="soft">${o.foot||''}</p>`;
+  const btn=$('#tgo');let run=false;
+  btn.onclick=()=>{
+    if(run){stopAll();run=false;btn.textContent='Start';$('#tp').textContent='Paused. Come back any time.';return}
+    run=true;btn.textContent='Stop';let el=0;
+    const tick=()=>{
+      let a=0,cur=o.steps[0];for(const s of o.steps){if(el>=a&&el<a+s[0]){cur=s;break}a+=s[0]}
+      $('#tp').textContent=cur[1];$('#tbar').style.width=(el/total*100)+'%';const r=total-el;$('#tc').textContent=Math.floor(r/60)+':'+pad(r%60);
+      el++;if(el>total){stopAll();run=false;btn.textContent='Again';$('#tp').textContent=o.done;$('#tbar').style.width='100%';$('#tc').textContent='0:00'}
+    };tick();every(tick,1000);
+  };
+}
+function gJaw(p){
+  const st=[[15,'Let your shoulders drop away from your ears. Breathe out slowly.'],[15,'Lift your shoulders up toward your ears. Hold gently... then let them fall.'],[15,'Roll your shoulders back, three slow circles.'],[15,'Unclench your jaw. Let your teeth part and your tongue rest, soft and wide.'],[15,'Open your mouth a little and move your jaw gently side to side.'],[15,'Soften the muscles around your eyes and across your forehead.'],[15,'Let your chin drop toward your chest. Feel the back of your neck lengthen.'],[15,'Shake out your hands. One long breath in, one long breath out.']];
+  timed(p,{title:'Shoulders and jaw',lead:'Two minutes. Stop if anything hurts.',steps:st,idle:'Sit or stand comfortably. Press start when ready.',done:'Done. Notice what changed, even a little.',voice:'Shoulders and jaw release. '+st.map(s=>s[1]).join(' ')});
+}
+function gOut(p){
+  const mk=m=>{const pr=['Leave the phone behind, or keep it in your pocket.','Look at the furthest thing you can see.','Notice the sky: its colour, its light.','Notice one sound you usually tune out.','Feel the air on your face and hands.','Walk slowly. There is nowhere to be.'];const a=[];for(let i=0;i<m;i++)a.push([60,pr[i%pr.length]]);return a};
+  const VT='Step outside. A few minutes, away from the screen. Look at the furthest thing you can see. Notice the sky. Notice one sound. Feel the air. There is nowhere to be.';
+  let m=5;
+  const go=()=>{timed(p,{title:'Step outside',lead:'A doorway or an open window counts if outside is hard right now.',steps:mk(m),idle:'Choose a length, then press start.',done:'Welcome back. That was real maintenance.',voice:VT,pre:`<div class="chips" style="margin-bottom:14px" role="group" aria-label="Length">${[5,10].map(x=>`<button class="chip" type="button" data-m="${x}" aria-pressed="${x===m}">${x} minutes</button>`).join('')}</div>`});
+    $$('[data-m]',p).forEach(b=>b.onclick=()=>{stopAll();m=+b.dataset.m;go()})};go();
+}
+function gWind(p){
+  const it=['Pick a screens-off time and tell yourself it starts then.','Lights low. Lamps instead of the big light, if you can.','Write tomorrow\'s worries on paper. Title it: parked until morning.','Something warm and simple to drink, or a glass of water.','Wash your face. A slow stretch, shoulders and neck.','Put the phone across the room. If you are on call, check your handoff first, then let it go.','Lie down and let your breath get slower. You don\'t have to sleep. Resting counts.'];
+  p.innerHTML=`<div class="top-row"><h2 style="margin:0">Wind down for sleep</h2>${speakBtn('Wind down for sleep. '+it.join(' '))}</div><p class="lead">A gentle routine, not a treatment.</p>
+  <ol class="ulist">${it.map((t,i)=>`<li><label class="todo" style="margin:0"><input type="checkbox"><span class="tt" style="font-weight:600">${t}</span></label></li>`).join('')}</ol>
+  <p class="soft">This is just a calm-down routine, with no medical claims. If sleep has been hard for weeks, tell your doctor.</p>`;
+}
+
+/* farm daydream */
+const NEEDS=[
+ ['tangible','Tangible results','Seeing something finished that I made',["Finish one small thing with your hands this month: bake bread, fix a shelf, repot a plant.","Keep a short 'done and visible' list at the end of each day."]],
+ ['auto','Autonomy','Deciding how my own day goes',["Claim one block each week that is yours to plan, with no meetings.","Pick one decision at work that you can own start to finish."]],
+ ['nature','Nature and being outside','Sky, soil, weather',["Walk outside 15 minutes a day, ideally somewhere green.","Eat one meal a week outdoors."]],
+ ['slow','A slower pace','Time that isn\'t sliced into tickets',["Do one slow task each day with no screen: dishes, watering, sweeping.","Protect one evening a week with nothing planned."]],
+ ['body','Physical work','Tired in my body, not just my head',["A 20-minute body job: dig, carry, clean out the garage, a long walk.","Try a work day at a community garden."]],
+ ['quiet','Quiet','Fewer pings and screens',["Ten minutes a day with no input: no podcast, no phone.","A quiet first drink of the day, outside or by a window."]],
+ ['rhythm','Seasons and growing things','Cycles I can watch',["Grow something on a windowsill: herbs, microgreens, a tomato plant.","Notice sunrise and sunset times this week."]],
+ ['people','Honest, practical company','People who do real things',["Volunteer a morning at a community garden, farm or food bank.","Chat with one grower at a farmers market."]]
+];
+const BIGQ=["What exactly would I be leaving: the work, the team, the hours, the pressure, or the whole field?","Is the problem this job and this on-call, or tech itself?","Could a smaller change test it first: another team, a lighter schedule, a few weeks off?","Have I spent a weekend, or better a week, on a working farm? What does a normal Tuesday there involve, including weather, money and early mornings?","How many months of runway do I have, and what would I need to earn?","Which part of the dream is farming, and which part is simply not being here?","Who has made a change like this that I could ask for an hour of their time?","Would this feel the same after a few weeks of real rest, better sleep and regular meals?","Can I give myself permission to not decide yet, and decide again once I've rested?","Who do I want to talk this through with before I do anything big?"];
+let fState={s:0,dream:'',r:{},picked:{}};
+V['/farm']=()=>{
+  const F=fState;
+  if(F.s===0){
+    const lastF=D.farm[0];
+    main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">The farm daydream</h1>
+    <div class="card"><p class="lead" style="color:var(--cream)">Wanting out, wanting land, wanting quiet: that's not a joke and it's not a failure.</p>
+    <p>It's information. Part of you is pointing at something it needs. Let's find out what, and see how much of it you can bring into your life this month.</p>
+    <label class="fl" for="fd">Picture the farm at 6am. What are you doing? <span class="soft">(optional)</span></label>
+    <textarea id="fd" placeholder="Whatever comes. There are no wrong answers.">${esc(F.dream)}</textarea>
+    <div class="row-actions"><button class="btn" id="fnext" type="button">What is it giving me?</button></div>
+    ${lastF?`<p class="note" style="margin-top:14px">Your last daydream was ${fmt(dkey(new Date(lastF.ts)))}. Top needs then: ${lastF.top.map(esc).join(', ')}.</p>`:''}</div></div>`;
+    $('#fd').oninput=e=>F.dream=e.target.value;
+    $('#fnext').onclick=()=>{if(!guardText(main))return;F.s=1;render()};
+  }else if(F.s===1){
+    main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">What is the farm giving you?</h1><p class="lead">How much does the farm give that work doesn't? 0 is not really, 5 is a lot.</p>
+    <div class="card">${NEEDS.map(n=>`<div class="metric"><label class="fl" for="n_${n[0]}">${n[1]} <span class="soft">${n[2]}</span></label><div class="rangeRow"><input type="range" id="n_${n[0]}" min="0" max="5" step="1" value="${F.r[n[0]]??0}"><output id="o_${n[0]}">${F.r[n[0]]??0}</output></div></div>`).join('')}
+    <div class="row-actions"><button class="btn ghost small" id="fback" type="button">Back</button><button class="btn" id="fnext" type="button">Show me</button></div></div></div>`;
+    NEEDS.forEach(n=>{$('#n_'+n[0]).oninput=e=>{F.r[n[0]]=+e.target.value;$('#o_'+n[0]).textContent=e.target.value}});
+    $('#fback').onclick=()=>{F.s=0;render()};$('#fnext').onclick=()=>{F.s=2;render()};
+  }else{
+    const ranked=NEEDS.map(n=>({n,v:F.r[n[0]]||0})).sort((a,b)=>b.v-a.v).slice(0,3);
+    const none=ranked.every(x=>x.v===0);
+    main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">What the farm is telling you</h1>
+    <p class="lead">${none?'You rated everything at zero, and that is information too: maybe it is rest you are after. Here are three gentle places to start.':'Your strongest needs, and small real ways to get a bit of each this month, inside the life you have.'}</p>
+    <div class="card">${ranked.map(x=>`<div class="dim"><h3>${x.n[1]} <span class="lvl">${x.v}/5</span></h3><ul class="ulist">${x.n[3].map((t,i)=>`<li><label class="todo" style="margin:0"><input type="checkbox" data-p="${x.n[0]}${i}" ${F.picked[x.n[0]+i]?'checked':''}><span class="tt" style="font-weight:600">${t}</span></label></li>`).join('')}</ul></div>`).join('')}
+    <p class="note">Tick the ones you'll actually try. Pick one, not all.</p></div>
+    <div class="card"><h2>Questions to ask before a big career change</h2><p class="note">Not a verdict, and no need to answer today. Come back to them after some rest.</p><ol class="qlist">${BIGQ.map(q=>`<li>${q}</li>`).join('')}</ol></div>
+    <div class="row-actions"><button class="btn" id="fsave" type="button">Save this daydream</button><button class="btn ghost" id="fagain" type="button">Start again</button></div></div>`;
+    $$('[data-p]').forEach(c=>c.onchange=()=>F.picked[c.dataset.p]=c.checked);
+    $('#fsave').onclick=()=>{if(!guardText(main))return;D.farm.unshift({ts:Date.now(),dream:F.dream,top:ranked.map(x=>x.n[1]),ratings:F.r,picked:Object.keys(F.picked).filter(k=>F.picked[k])});save();toast('Saved. The farm will still be there.')};
+    $('#fagain').onclick=()=>{fState={s:0,dream:'',r:{},picked:{}};render()};
+  }
+};
+
+/* scripts */
+const SCRIPTS=[
+ ["Telling a manager I'm overloaded","Hi [Name], I want to flag something early rather than late. My current load ([the 2-3 big things]) is more than I can do well right now, and I'm starting to see it in my sleep and focus. Could we find 20 minutes this week to look at what can move, wait, or be shared? I'd rather solve this together now than have something slip. I can bring a short list of options."],
+ ["Declining extra on-call","Thanks for thinking of me. I can't take extra on-call this [week / rotation]. I'm at my limit, and covering more would make me less reliable, not more. I'm happy to help another way: [write a runbook / review the rotation / cover a daytime slot]. Can we look at who else is available, or whether the rotation needs another person?"],
+ ["Handing off an incident","Handing off [incident / ticket]. Status: [one line]. What I know: [facts]. What I've tried: [list]. What I haven't checked: [list]. The next step I'd take: [step]. Everything is here: [link / notes]. I'm offline from [time] until [time]. If something is unclear, make the call. You have my trust."],
+ ["Asking a colleague for 30 minutes","Hey [Name], do you have 30 minutes this week to think something through with me? I'm stuck on [topic] and a second pair of eyes would help. No prep needed. Happy to return the favour. [Days / times] all work for me."],
+ ["Telling a friend I'm not doing great","Hey. I haven't been doing great lately: tired, a bit stuck, not sleeping well. I don't need you to fix anything. Could we talk this week, or could you just check in on me now and then? It would mean a lot."],
+ ["Messaging a doctor or therapist","Hello, I'd like to book an appointment. For the past [number] weeks I've had trouble with [sleep / eating / constant exhaustion], and I think work stress and burnout are part of it. I'd like help working out what's going on and what could help. I'm available [days / times]. Is there a first-visit form I should fill in? Thank you."]
+];
+const PEOPLE=["Peer groups: look for a local meetup or a community in your field with a code of conduct. Even lurking helps.","A trusted mentor: someone a few years ahead who has been tired before. Ask for one coffee, not a commitment.","A buddy system: pick one coworker and swap a two-line check-in each week.","Online communities: small, kind, moderated ones beat big noisy ones.","Someone outside tech: a friend, a family member, a class. You are more than your job.","Start with one. Send one message this week."];
+function copyText(t){
+  return (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t):Promise.reject()).catch(()=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()});
+}
+V['/scripts']=()=>{
+  main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">Say it for me</h1><p class="lead">Copy, fill in the [brackets], send. Change any words that don't sound like you.</p>
+  ${SCRIPTS.map((s,i)=>`<div class="card"><h3>${s[0]}</h3><div class="script" id="sc${i}">${esc(s[1]).replace(/\[([^\]]+)\]/g,'<mark>[$1]</mark>')}</div><button class="btn small" type="button" data-copy="${i}">Copy this</button></div>`).join('')}
+  <div class="card"><h3>Find your people</h3><ul class="ulist">${PEOPLE.map(t=>`<li>${t}</li>`).join('')}</ul></div></div>`;
+  $$('[data-copy]').forEach(b=>b.onclick=()=>{copyText(SCRIPTS[+b.dataset.copy][1]).then(()=>{toast('Copied. You can do this.');b.textContent='Copied'});setTimeout(()=>b.textContent='Copy this',2000)});
+};
+
+V['/alone']=()=>{
+  main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">You're not the only one</h1>
+  <div class="card"><h3>It's common, and it makes sense</h3><p>Security and IT work asks people to stay alert for long stretches, carry a pager, and picture everything that could go wrong. Doing that for years wears people down. Burnout is recognised by the World Health Organization as an occupational phenomenon, the result of workplace stress that hasn't been well managed. It is not a medical condition, and it is not a personal flaw.</p></div>
+  <div class="card"><h3>Alert fatigue is a design problem</h3><p>When there are more alerts than a person can sensibly look at, attention dulls. That is what human brains do. It is a flaw in the system around the person, not in the person watching it.</p></div>
+  <div class="card"><h3>Isolation sneaks in</h3><p>Night shifts, remote work, confidential projects, and a culture of not complaining all make it easy to go quiet. Many people in this field are hiding exactly how they feel, and so are the people sitting next to you.</p></div>
+  <div class="card"><h3>"Sink or swim" is systemic</h3><p>If a team only works when people burn themselves down, the team design is the problem. Needing help in that setting is the normal response, not a weakness.</p></div>
+  <div class="card"><h3>Small things teams can change</h3><ul class="ulist"><li><b>Rotate on-call</b> fairly, and protect recovery time after a bad night.</li><li><b>Run blameless post-mortems</b>: ask what let it happen, not who.</li><li><b>Say "I don't know"</b> out loud. It gives everyone else permission.</li><li><b>Ask for backup early</b>, before it's an emergency.</li><li><b>Share the boring work</b> so it doesn't fall on the same person.</li></ul></div>
+  <div class="row-actions"><a class="btn" href="#/scripts">Words for asking for help</a><button class="btn ghost" type="button" data-help>Need a human right now?</button></div></div>`;
+};
+
+V['/data']=()=>{
+  const c=Object.keys(D.checkins).length;
+  main.innerHTML=`<div class="wrap narrow"><h1 tabindex="-1">My data</h1>
+  <div class="card"><p class="lead" style="color:var(--cream)">Everything lives in this browser, on this device. Nothing is sent anywhere. There are no accounts and no analytics.</p>
+  <p class="note">Right now: ${c} check-in${c===1?'':'s'}, ${D.burnout.length} burnout check-in${D.burnout.length===1?'':'s'}, ${D.thoughts.length} journal entr${D.thoughts.length===1?'y':'ies'}, ${D.farm.length} farm daydream${D.farm.length===1?'':'s'}.</p>
+  <div class="row-actions"><button class="btn" id="exp" type="button">Export my data (JSON)</button></div></div>
+  <div class="card"><h3>Delete everything</h3><p>This permanently removes all of it from this browser. There's no undo.</p>
+  <div class="row-actions" id="delRow"><button class="btn ghost" id="del1" type="button">Delete everything</button></div></div></div>`;
+  $('#exp').onclick=()=>{
+    const blob=new Blob([JSON.stringify({app:'Human Uptime',exportedAt:new Date().toISOString(),data:D},null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='human-uptime-export.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Exported.');
+  };
+  $('#del1').onclick=()=>{
+    $('#delRow').innerHTML=`<button class="btn" id="del2" type="button">Yes, delete everything</button><button class="btn ghost" id="del0" type="button">Keep my data</button>`;$('#del0').focus();
+    $('#del0').onclick=()=>render();
+    $('#del2').onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){}mem=null;D=blank();ciResult=null;bState={i:-1,a:[]};uState={s:0,thought:'',b0:50,forT:'',against:'',friend:'',bal:'',b1:50};fState={s:0,dream:'',r:{},picked:{}};buildScene();render();toast('Everything deleted.')};
+  };
+};
+
+/* ---------- router ---------- */
+function render(){
+  stopAll();
+  const r=(location.hash.replace(/^#/,'')||'/');
+  const v=V[r]||V['/'];
+  v();
+  $$('#nav a').forEach(a=>{const on=a.dataset.r===(V[r]?r:'/');on?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
+  const h=$('h1',main);if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange',render);
+buildScene();render();
+</script>
+</body>
+</html>
